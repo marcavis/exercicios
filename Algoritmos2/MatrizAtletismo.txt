@@ -1,0 +1,48 @@
+Algoritmo MatrizAtletismo
+var
+	atletas: vetor[4] literal
+	tempos: matriz[4][8] inteiro
+	i, j, k, op, pos: inteiro
+	ordem: vetor[4] inteiro
+inicio
+	atletas[0] <- "Ana"
+	atletas[1] <- "João"
+	atletas[2] <- "Pedro"
+	atletas[3] <- "Carol"
+	ordem[0] <- 4
+	ordem[1] <- 4
+	ordem[2] <- 4
+	ordem[3] <- 4
+
+	para i de 0 ate 3 faca
+		para j de 0 ate 7 faca
+			escreva "Qual o tempo de " + atletas[i] + " na prova número " + j + ", em segundos ?"
+			leia tempos[i][j]
+		fimpara
+	fimpara
+	
+	op <- 1
+	enquanto op <> 0 faca
+		escreva "De qual prova deseja ver a classificação?"
+		escreva "1-8 para provas de 1 a 8, 0 para sair"
+		leia op
+		se op <> 0 entao
+			para i de 0 ate 3 faca
+				para k de 0 ate 3 faca
+					se tempos[i][op] < tempos[k][op] entao
+						ordem[i] <- ordem[i] - 1
+					fimse
+				fimpara
+			fimpara
+			
+			escreva "Posições na maratona número " + op + " :"
+			para pos de 1 ate 4 faca
+				para k de 0 ate 3 faca
+					se ordem[k] = pos entao
+						escreva pos + " - " + atletas[k] + " - " + tempos[k][op]
+					fimse
+				fimpara
+			fimpara
+		fimse
+	fimenquanto
+fimalgoritmo
