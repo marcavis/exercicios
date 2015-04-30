@@ -1,0 +1,2 @@
+# exercicios
+CS Exercises package.
