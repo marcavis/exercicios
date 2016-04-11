@@ -68,14 +68,14 @@ data Monomial 	= Mono {multiple :: Fraction, term :: Monomial, power :: Fraction
 				| Mult {first :: Monomial, second :: Monomial}
 				| Sum {first :: Monomial, second :: Monomial}
 				| Poly [Monomial]
-				| Exp {term :: Monomial}
-				| Ln {term :: Monomial, power :: Fraction}
-				| Sin {term :: Monomial, power :: Fraction}
-				| Cos {term :: Monomial, power :: Fraction}
-				| Tan {term :: Monomial, power :: Fraction}
-				| Sec {term :: Monomial, power :: Fraction}
-				| Csc {term :: Monomial, power :: Fraction}
-				| Cot {term :: Monomial, power :: Fraction}
+				| Exp {multiple :: Fraction, term :: Monomial}
+				| Ln {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Sin {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Cos {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Tan {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Sec {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Csc {multiple :: Fraction, term :: Monomial, power :: Fraction}
+				| Cot {multiple :: Fraction, term :: Monomial, power :: Fraction}
 	deriving (Typeable, Data)
 	--deriving (Typeable, Data)
 
