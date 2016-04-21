@@ -1,0 +1,21 @@
+Arquivo
+Campo   chars 
+Produto  1 - 30
+Valor   31 - 40 (2 decimais)
+QTD     41 - 45
+
+Notebook  000130035 00001
+TV        000000199 00002
+
+Janela:
+
+Produto ___
+Valor   ___
+QT      ___ INSERIR
+
+TABELA:
+Produto | Vlr | QT | Subtotal
+
+
+
+Final: TOTAL |_______|
