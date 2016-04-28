@@ -1,0 +1,14 @@
+Arquivo txt separado por ,
+
+pergunta, resp1, resp2, resp3, indice_da_correta
+
+
+janela:
+
+pergunta			pergunta ___
+				pontuacao ___
+a) resp1
+b) resp2
+c) resp3
+
+OK
