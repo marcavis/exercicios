@@ -17,9 +17,9 @@ public class FilaDinamica {
 		Node novo = new Node(v);
 		if (tamanho() == 0) {
 			frente = novo;
-			frente.prox = null;
+			frente.next = null;
 		} else {
-			verso.prox = novo;
+			verso.next = novo;
 		}
 		verso = novo;
 		_tamanho++;
@@ -29,7 +29,7 @@ public class FilaDinamica {
 		if (tamanho() == 0)
 			return -1;
 		int retorno = frente.valor;
-		frente = frente.prox;
+		frente = frente.next;
 		_tamanho--;
 		return retorno;
 	}
@@ -44,9 +44,9 @@ public class FilaDinamica {
 		if (tamanho() > 0)
 		{
 			Node mostra = frente;
-			while (mostra.prox != null) {
+			while (mostra.next != null) {
 				resp += mostra.valor + ",";
-				mostra = mostra.prox;
+				mostra = mostra.next;
 			}
 			resp += mostra.valor;
 		}

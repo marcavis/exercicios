@@ -14,7 +14,7 @@ public class PilhaDinamica {
 	
 	public void inserir(int v) {
 		Node novo = new Node(v);
-		novo.prox = topo;
+		novo.next = topo;
 		topo = novo;
 		_tamanho++;
 	}
@@ -23,7 +23,7 @@ public class PilhaDinamica {
 		if (tamanho() == 0)
 			return -1;
 		int retorno = topo.valor;
-		topo = topo.prox;
+		topo = topo.next;
 		_tamanho--;
 		return retorno;
 	}
@@ -36,9 +36,9 @@ public class PilhaDinamica {
 	public String toString() {
 		String resp = "[";
 		Node mostra = topo;
-		while (mostra.prox != null) {
+		while (mostra.next != null) {
 			resp += mostra.valor + ",";
-			mostra = mostra.prox;
+			mostra = mostra.next;
 		}
 		resp += mostra.valor;
 		return resp + "]";
