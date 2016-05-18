@@ -21,11 +21,15 @@ public class Node<T> {
 		this.valor = valor;
 	}
 
-	public Node getPai() {
+	public Node<T> getPai() {
 		return pai;
 	}
 
-	public void setPai(Node pai) {
+	public void setPai(Node<T> pai) {
 		this.pai = pai;
+	}
+	
+	public String toString() {
+		return valor.toString();
 	}
 }

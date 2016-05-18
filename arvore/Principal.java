@@ -1,5 +1,7 @@
 package arvore;
 
+import java.util.ArrayList;
+
 public class Principal {
 
 	public static void main(String[] args) {
@@ -10,7 +12,17 @@ public class Principal {
 		Node<String> e = new Node("E");
 		
 		Arvore<String> arv = new Arvore(a);
-		System.out.println(a.getValor());
-		
+		arv.insere(a, b);
+		arv.insere(b, c);
+		arv.insere(a, d);
+		arv.insere(d, e);
+		arv.insere(b, new Node("F"));
+		arv.insere(a, new Node("G"));
+		ArrayList<Node> sai;
+		sai = arv.elementos();
+		System.out.println(arv);
+		System.out.println(arv.atualiza(b, e));
+
+		System.out.println(arv);
 	}
 }

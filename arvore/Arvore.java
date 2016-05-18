@@ -15,12 +15,13 @@ public class Arvore<T> {
 	
 	public void insere(Node<T> pai, Node<T> filho) {
 		pai.filhos.add(filho);
+		filho.setPai(pai);
 	}
 	
 	@SuppressWarnings("unchecked")
 	public Node<T> pai(Node<T> node) {
 		if(node.getPai() == null) {
-			throw new NullPointerException("Elemento n„o tem pai");
+			throw new NullPointerException("Elemento n√£o tem pai");
 		}
 		return node.getPai();
 	}
@@ -43,8 +44,7 @@ public class Arvore<T> {
 	}
 	
 	public int tamanho() {
-		int cont = 0;
-		return cont;
+		return contaDescendentes(raiz);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -52,11 +52,42 @@ public class Arvore<T> {
 		if(isExterno(node)) {
 			return 1;
 		} else {
-			int res = 0;
+			int res = 1;
 			for (Node<T> filho : node.filhos)
 				res += contaDescendentes(filho);
 			return res;
 		}
+	}
+	
+	public ArrayList<Node> elementos() {
+		ArrayList<Node> lista = new ArrayList<Node>();
+		return _elementos(raiz, lista);
+	}
+	
+	private ArrayList<Node> _elementos(Node<T> node, ArrayList<Node> lista) {
+		ArrayList<Node> ret = new  ArrayList<Node>();
+		if(isExterno(node)) {
+			ret.add(node);
+			return ret;
+		} else {
+			ret.add(node);
+			for (Node<T> filho : node.filhos)
+				ret.addAll(_elementos(filho, lista));
+			return ret;
+		}
+		
+	}
+	
+	public T atualiza(Node<T> antigo, Node<T> novo) {
+		int i = 0;
+		for (Node<T> filho : antigo.getPai().filhos) {
+			if(filho == antigo) {
+				break;
+			}
+			i++;
+		}
+		antigo.getPai().filhos.set(i, novo);
+		return antigo.getValor();
 	}
 	
 	public int soma(ArrayList<Integer> lista) {
@@ -65,4 +96,16 @@ public class Arvore<T> {
 			res += i;
 		return res;
 	}
+
+	@Override
+	public String toString() {
+		ArrayList<Node> itens = elementos();
+		String res = "[";
+		for (int i = 0; i < tamanho() - 1; i++)
+			res += itens.get(i) + ", ";
+		res += itens.get(tamanho()-1) + "]";
+		return res;
+	}
+	
+	
 }
