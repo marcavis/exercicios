@@ -15,6 +15,8 @@ import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.ModifyEvent;
 
 public class TelaCidade extends Composite {
 
@@ -24,9 +26,13 @@ public class TelaCidade extends Composite {
 	private Label lblErro;
 
 	private ArrayList<Cidade> lista = new ArrayList<Cidade>();
+	private Cidade selecionada;
 	private Text textUf;
 	private Label lblFiltro;
 	private Text textFiltro;
+	private TableColumn tblclmnId;
+	private Button btnAlterar;
+	private Button btnExcluir;
 
 	
 	/**
@@ -49,38 +55,34 @@ public class TelaCidade extends Composite {
 		lblUf.setText("UF");
 		
 		btnIncluir = new Button(this, SWT.NONE);
-		btnIncluir.setBounds(10, 96, 75, 25);
+		btnIncluir.setBounds(10, 64, 75, 25);
 		btnIncluir.setText("Incluir");
 		btnIncluir.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				String erro = "";
-				String nome = textNome.getText();
-				if(nome.equals(""))
-					erro += "Nome não pode ser vazio. ";
-				String uf = textUf.getText();
-				lista.add(new Cidade(nome, uf));
-				preencheTabela();
-				limpaTela();
+				getTela().cadastra();
+				preencheTabela(null);
 			}
 		});
 		
 		table = new Table(this, SWT.BORDER | SWT.FULL_SELECTION);
-		table.setBounds(10, 127, 430, 163);
+		table.setBounds(10, 128, 430, 175);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseDoubleClick(MouseEvent e) {
-				if (table.getSelectionIndex() >= 0) {
-					lista.remove(table.getSelectionIndex());
-					preencheTabela();
-				}
+				selecionada = lista.get(table.getSelectionIndex());
+				setTela(selecionada);
 			}
 		});
 		
+		tblclmnId = new TableColumn(table, SWT.NONE);
+		tblclmnId.setWidth(100);
+		tblclmnId.setText("ID");
+		
 		TableColumn tblclmnNome = new TableColumn(table, SWT.NONE);
-		tblclmnNome.setWidth(295);
+		tblclmnNome.setWidth(212);
 		tblclmnNome.setText("Nome");
 		
 		TableColumn tblclmnUF = new TableColumn(table, SWT.NONE);
@@ -93,30 +95,67 @@ public class TelaCidade extends Composite {
 		
 		textUf = new Text(this, SWT.BORDER);
 		textUf.setBounds(71, 37, 75, 21);
+				
+		btnAlterar = new Button(this, SWT.NONE);
+		btnAlterar.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				Cidade nova = getTela();
+				nova.setId(selecionada.getId());
+				nova.altera();
+				preencheTabela(null);
+			}
+		});
+		btnAlterar.setText("Alterar");
+		btnAlterar.setBounds(91, 64, 75, 25);
 		
+		btnExcluir = new Button(this, SWT.NONE);
+		btnExcluir.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				selecionada.exclui();
+				preencheTabela(null);
+			}
+		});
+		btnExcluir.setText("Excluir");
+		btnExcluir.setBounds(173, 64, 75, 25);
+
 		lblFiltro = new Label(this, SWT.NONE);
 		lblFiltro.setText("Filtro");
-		lblFiltro.setBounds(10, 67, 55, 15);
+		lblFiltro.setBounds(10, 104, 55, 15);
 		
 		textFiltro = new Text(this, SWT.BORDER);
-		textFiltro.setBounds(71, 64, 75, 21);
-
+		textFiltro.addModifyListener(new ModifyListener() {
+			public void modifyText(ModifyEvent arg0) {
+				preencheTabela(textFiltro.getText());
+			}
+		});
+		textFiltro.setBounds(71, 101, 369, 21);
+		
+		preencheTabela(null);
 	}
 
-	private void preencheTabela() {
+	private void preencheTabela(String filtro) {
 		table.setItemCount(0);
-		for(Cidade p : lista) {
+		lista = Cidade.listar(filtro);
+		for(Cidade c : lista) {
 			TableItem it = new TableItem(table, SWT.NONE);
-			it.setText(p.toArray());
+			it.setText(c.toArray());
 		}
 	}
 	
-	private void limpaTela() {
-		textNome.setText("");
-		textUf.setText("");
-		lblErro.setText("");
+	private Cidade getTela() {
+		Cidade c = new Cidade();
+		c.setNome(textNome.getText());
+		c.setUf(textUf.getText());
+		return c;
 	}
-
+	
+	private void setTela(Cidade c) {
+		textNome.setText(c.getNome());
+		textUf.setText(c.getUf());
+	}
+	
 	@Override
 	protected void checkSubclass() {
 		// Disable the check that prevents subclassing of SWT components
