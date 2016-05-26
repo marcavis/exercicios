@@ -23,16 +23,13 @@ public class Principal extends Shell {
 	private CTabItem tabInstrumento;
 	private CTabItem tabBandas;
 	private CTabItem tabCidade;
+	private CTabItem tabCadBI;
 	
 	private Composite compInstrumento;
 	private Composite compBandas;
-	private Composite compCidade; 
+	private Composite compCidade;
+	private Composite compCadBI;
 	
-	//Não peguei o modo usual de impedir CTabItems de abrir mais de uma vez, então temos
-	//essa solução simples mas que não funcionaria legal com muitas abas.
-	private boolean tabI_ligada = false;
-	private boolean tabB_ligada = false;
-	private boolean tabC_ligada = false;
 	private CTabFolder tabFolder;
 	
 	public static Connection conn = Conexao.conn();
@@ -65,7 +62,7 @@ public class Principal extends Shell {
 		super(display, SWT.SHELL_TRIM);
 		
 		tabFolder = new CTabFolder(this, SWT.BORDER);
-		tabFolder.setBounds(10, 10, 504, 392);
+		tabFolder.setBounds(10, 10, 704, 392);
 		tabFolder.setSimple(false);
 		tabFolder.setSelectionBackground(Display.getCurrent().getSystemColor(SWT.COLOR_TITLE_INACTIVE_BACKGROUND_GRADIENT));
 		
@@ -82,19 +79,14 @@ public class Principal extends Shell {
 		mntminstrumento.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(!tabI_ligada) { 
+				if(!verificaAba("Instrumentos")) { 
 					tabInstrumento = new CTabItem(tabFolder, SWT.NONE);
-					tabInstrumento.addDisposeListener(new DisposeListener() {
-						public void widgetDisposed(DisposeEvent arg0) {
-							tabI_ligada = false;
-						}
-					});
 					tabInstrumento.setShowClose(true);
 					tabInstrumento.setText("Instrumentos");
 				
 					compInstrumento = new TelaInstrumento(tabFolder, SWT.NONE);
 					tabInstrumento.setControl(compInstrumento);
-					tabI_ligada = true;
+					tabFolder.setSelection(tabInstrumento);
 				}
 			}
 		});
@@ -104,19 +96,14 @@ public class Principal extends Shell {
 		mntmbandas.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(!tabB_ligada) { 
+				if(!verificaAba("Bandas")) { 
 					tabBandas = new CTabItem(tabFolder, SWT.NONE);
-					tabBandas.addDisposeListener(new DisposeListener() {
-						public void widgetDisposed(DisposeEvent arg0) {
-							tabB_ligada = false;
-						}
-					});
 					tabBandas.setShowClose(true);
 					tabBandas.setText("Bandas");
 				
 					compBandas = new TelaBandas(tabFolder, SWT.NONE);
 					tabBandas.setControl(compBandas);
-					tabB_ligada = true;
+					tabFolder.setSelection(tabBandas);
 				}
 			}
 		});
@@ -126,23 +113,37 @@ public class Principal extends Shell {
 		mntmcidade.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(!tabC_ligada) { 
+				if(!verificaAba("Cidade")) { 
 					tabCidade = new CTabItem(tabFolder, SWT.NONE);
-					tabCidade.addDisposeListener(new DisposeListener() {
-						public void widgetDisposed(DisposeEvent arg0) {
-							tabC_ligada = false;
-						}
-					});
 					tabCidade.setShowClose(true);
 					tabCidade.setText("Cidade");
 				
 					compCidade = new TelaCidade(tabFolder, SWT.NONE);
 					tabCidade.setControl(compCidade);
-					tabC_ligada = true;
+					tabFolder.setSelection(tabCidade);
 				}
 			}
 		});
 		mntmcidade.setText("&Cidade");
+		
+		new MenuItem(menu_1, SWT.SEPARATOR);
+		
+		MenuItem mntmInstrumentosdasBandas = new MenuItem(menu_1, SWT.NONE);
+		mntmInstrumentosdasBandas.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(!verificaAba("Instrumentos das Bandas")) { 
+					tabCadBI = new CTabItem(tabFolder, SWT.NONE);
+					tabCadBI.setShowClose(true);
+					tabCadBI.setText("Instrumentos das Bandas");
+				
+					compCadBI = new CadBandaInst(tabFolder, SWT.NONE);
+					tabCadBI.setControl(compCadBI);
+					tabFolder.setSelection(tabCadBI);
+				}
+			}
+		});
+		mntmInstrumentosdasBandas.setText("Instrumentos &das Bandas");
 		
 		new MenuItem(menu_1, SWT.SEPARATOR);
 		
@@ -159,12 +160,29 @@ public class Principal extends Shell {
 		createContents();
 	}
 
+	private boolean verificaAba(String nome){
+		CTabItem[] items = tabFolder.getItems();
+		int indice = -1;
+		for(int i = 0;i<items.length;i++){
+			if(items[i].getText().equals(nome)){
+				indice = i;
+				break;
+			}
+		}
+		if(indice != -1){
+			tabFolder.setSelection(indice);
+			return true;
+		}
+		return false;
+			
+	}
+	
 	/**
 	 * Create contents of the shell.
 	 */
 	protected void createContents() {
 		setText("SWT Application");
-		setSize(540, 470);
+		setSize(740, 470);
 
 	}
 

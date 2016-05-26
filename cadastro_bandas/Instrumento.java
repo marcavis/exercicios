@@ -71,6 +71,24 @@ public class Instrumento {
 		}
 	}
 	
+	public Instrumento buscaPorID(int id) {
+		Instrumento i = new Instrumento();
+		String sql = "select * from instrumento where id=?";
+		try {
+			PreparedStatement ps = Principal.conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				i.setId(rs.getInt("id"));
+				i.setNome(rs.getString("nome"));
+				i.setTipo(rs.getString("tipo"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return i;
+	}
+	
 	public String getNome() {
 		return nome;
 	}
