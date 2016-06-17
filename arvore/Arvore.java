@@ -61,10 +61,10 @@ public class Arvore<T> {
 	
 	public ArrayList<Node> elementos() {
 		ArrayList<Node> lista = new ArrayList<Node>();
-		return _elementos(raiz, lista);
+		return _elementos(raiz);
 	}
 	
-	private ArrayList<Node> _elementos(Node<T> node, ArrayList<Node> lista) {
+	private ArrayList<Node> _elementos(Node<T> node) {
 		ArrayList<Node> ret = new  ArrayList<Node>();
 		if(isExterno(node)) {
 			ret.add(node);
@@ -72,7 +72,7 @@ public class Arvore<T> {
 		} else {
 			ret.add(node);
 			for (Node<T> filho : node.filhos)
-				ret.addAll(_elementos(filho, lista));
+				ret.addAll(_elementos(filho));
 			return ret;
 		}
 		

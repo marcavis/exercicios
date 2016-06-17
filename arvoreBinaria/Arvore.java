@@ -1,6 +1,6 @@
 package arvoreBinaria;
 
-public class Arvore<T> {
+public class Arvore<T extends Comparable> {
 	private Node<T> raiz;
 	
 	public Arvore(Node<T> raiz) {
@@ -17,12 +17,15 @@ public class Arvore<T> {
 		} else {
 			if (pai.getEsquerda() == null) {
 				pai.setEsquerda(filho);
+				filho.setPai(pai);
 			} else if(pai.getDireita() == null) {
 				pai.setDireita(filho);
+				filho.setPai(pai);
 			} else {
-				throw new Exception("NÛ j· tem dois filhos");
+				throw new Exception("N√≥ j√° tem dois filhos");
 			}
 		}
 	}
+	
 	
 }
