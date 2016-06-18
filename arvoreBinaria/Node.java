@@ -55,11 +55,29 @@ public class Node<T extends Comparable> {
 		return valor.compareTo(outro.valor);
 	}
 
-	public void trocaFilho(Node<T> atual, Node<T> novo) {
+	public void removeFilho(Node<T> atual) {
 		if (atual == esquerda)
-			this.esquerda = novo;
+			this.esquerda = null;
 		else
+			this.direita = null;
+	}
+	
+	public void trocaFilho(Node<T> atual, Node<T> novo) {
+		System.out.println(this + "t " + atual + "a " + novo + "n ");
+		if (atual == esquerda) {
+			this.esquerda = novo;
+			if(novo != atual.getEsquerda() && novo.getEsquerda() == null)
+				this.esquerda.setEsquerda(atual.getEsquerda());
+			if(novo != atual.getDireita() && novo.getDireita() == null)
+				this.esquerda.setDireita(atual.getDireita());
+		} else {
 			this.direita = novo;
+			if(novo != atual.getEsquerda() && novo.getEsquerda() == null)
+				this.direita.setEsquerda(atual.getEsquerda());
+			if(novo != atual.getDireita() && novo.getDireita() == null)
+				this.direita.setDireita(atual.getDireita());
+		}
+		novo.setPai(atual.getPai());
 	}
 	
 	public int nivel() {
@@ -71,4 +89,6 @@ public class Node<T extends Comparable> {
 		}
 		return n;
 	}
+
+	
 }

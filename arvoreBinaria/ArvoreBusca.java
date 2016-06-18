@@ -37,7 +37,7 @@ public class ArvoreBusca<T extends Comparable> {
 	}
 	
 	public void remove(Node<T> n) throws Exception {
-		if(n.equals(raiz)) {
+		if(n.compareTo(raiz) == 0) {
 			if(raiz.quantFilhos() == 0) {
 				raiz = null;
 			} else if (raiz.getEsquerda() != null && raiz.getDireita() == null) {
@@ -46,7 +46,12 @@ public class ArvoreBusca<T extends Comparable> {
 				raiz = raiz.getDireita();
 			} else {
 				Node<T> novaRaiz = maisProximo(raiz);
-				remove(novaRaiz);
+				remove(novaRaiz, raiz);
+				if(novaRaiz != raiz.getEsquerda())
+					novaRaiz.setEsquerda(raiz.getEsquerda());
+				if(novaRaiz != raiz.getDireita())
+					novaRaiz.setDireita(raiz.getDireita());
+				novaRaiz.setPai(null);
 				raiz = novaRaiz;
 			}
 		} else {
@@ -56,24 +61,14 @@ public class ArvoreBusca<T extends Comparable> {
 				remove(n, raiz.getDireita());
 		}
 	}
-	
-	public Node<T> maisProximo(Node<T> n) throws Exception {
-		Node<T> atual = n.getEsquerda();
-		//alterar depois pra pegar da sub-arvore maior
-		while(atual.quantFilhos() > 0) {
-			if(atual.getDireita() != null) {
-				atual = atual.getDireita();
-			}
-		}
-		return atual;
-	}
-	
+
 	public void remove(Node<T> n, Node<T> atual) throws Exception {
+		System.out.println(n + " " + atual);
 		if(atual == null)
 			throw new Exception("Elemento não encontrado");
-		if(n.equals(atual)) {
+		if(n.compareTo(atual) == 0) {
 			if(atual.quantFilhos() == 0) {
-				atual.getPai().trocaFilho(atual, null);
+				atual.getPai().removeFilho(atual);
 				atual = null;
 			} else if (atual.getEsquerda() != null && atual.getDireita() == null) {
 				//so tem um filho, a esquerda
@@ -87,14 +82,23 @@ public class ArvoreBusca<T extends Comparable> {
 				atual.getPai().trocaFilho(atual, substituto);
 			}
 		} else {
-			if(n.compareTo(raiz) < 0)
-				remove(n, raiz.getEsquerda());
+			if(n.compareTo(atual) < 0)
+				remove(n, atual.getEsquerda());
 			else
-				remove(n, raiz.getDireita());
+				remove(n, atual.getDireita());
 		}
 	}
 	
-
+	public Node<T> maisProximo(Node<T> n) throws Exception {
+		Node<T> atual = n.getEsquerda();
+		//alterar depois pra pegar da sub-arvore maior
+		while(atual.quantFilhos() > 0) {
+			if(atual.getDireita() != null) {
+				atual = atual.getDireita();
+			}
+		}
+		return atual;
+	}
 	
 	public ArrayList<Node<T>> elementos() {
 		return _elementos(raiz);
