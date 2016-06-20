@@ -1,8 +1,8 @@
 package estruturas;
 
-public class Lista {
-	private Node frente = null;
-	private Node verso = null;
+public class Lista<T> {
+	private Node<T> frente = null;
+	private Node<T> verso = null;
 	private int _tamanho = 0;
 	
 	public Lista() {
@@ -13,8 +13,8 @@ public class Lista {
 		return tamanho() == 0;
 	}
 	
-	public void inserir(int v) {
-		Node novo = new Node(v);
+	public void inserir(T v) {
+		Node<T> novo = new Node<T>(v);
 		if (tamanho() == 0) {
 			frente = novo;
 			frente.next = null;
@@ -25,7 +25,7 @@ public class Lista {
 		_tamanho++;
 	}
 	
-	public void inserir(int v, int indice) {
+	public void inserir(T v, int indice) {
 		if (tamanho() == 0 || indice >= tamanho()) {
 			inserir(v);
 		} else {
@@ -34,7 +34,7 @@ public class Lista {
 				novo.next = frente;
 				frente = novo;
 			} else {
-				Node atual = frente;
+				Node<T> atual = frente;
 				for(int i = 1; i < indice; i++)
 					atual = atual.next;
 				novo.next = atual.next;
@@ -45,10 +45,10 @@ public class Lista {
 		}
 	}
 	
-	public int retirar() {
+	public T retirar() {
 		if (tamanho() == 0)
-			return -1;
-		int retorno = frente.valor;
+			throw new NullPointerException("Lista já está vazia.");
+		T retorno = frente.valor;
 		frente = frente.next;
 		_tamanho--;
 		if (tamanho() == 0)
@@ -56,16 +56,18 @@ public class Lista {
 		return retorno;
 	}
 	
-	public int retirar(int indice) {
+	public T retirar(int indice) {
 		if (indice == 0 )
 			return retirar();
 		if (indice >= tamanho())
 			indice = tamanho()-1; //ou talvez lançar uma exceção?
-		Node atual = frente;
+		Node<T> atual = frente;
 		for(int i = 1; i < indice; i++) {
-			atual = atual.next;
+			Node<T> next = atual.next;
+			atual = next;
 		}
-		int retorno = atual.next.valor;
+		Node<T> retirado = atual.next;
+		T retorno = retirado.valor;
 		if(atual.next.next == null)
 			verso = atual;
 		atual.next = atual.next.next;
@@ -82,7 +84,7 @@ public class Lista {
 		String resp = "[";
 		if (tamanho() > 0)
 		{
-			Node mostra = frente;
+			Node<T> mostra = frente;
 			while (mostra.next != null) {
 				resp += mostra.valor + ", ";
 				mostra = mostra.next;

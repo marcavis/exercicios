@@ -1,10 +1,10 @@
 package estruturas;
 
-public class NodeDuplo {
-	public int valor;
+public class NodeDuplo<T> {
+	public T valor;
 	public NodeDuplo prev, next;
 	
-	public NodeDuplo(int v) {
+	public NodeDuplo(T v) {
 		this.valor = v;
 	}
 }

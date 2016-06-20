@@ -1,8 +1,8 @@
 package estruturas;
 
-public class ListaDupla {
-	private NodeDuplo frente = null;
-	private NodeDuplo verso = null;
+public class ListaDupla<T> {
+	private NodeDuplo<T> frente = null;
+	private NodeDuplo<T> verso = null;
 	private int _tamanho = 0;
 	
 	public ListaDupla() {
@@ -13,8 +13,8 @@ public class ListaDupla {
 		return tamanho() == 0;
 	}
 	
-	public void inserir(int v) {
-		NodeDuplo novo = new NodeDuplo(v);
+	public void inserir(T v) {
+		NodeDuplo<T> novo = new NodeDuplo<T>(v);
 		if (tamanho() == 0) {
 			frente = novo;
 			frente.prev = null;
@@ -27,17 +27,17 @@ public class ListaDupla {
 		_tamanho++;
 	}
 	
-	public void inserir(int v, int indice) {
+	public void inserir(T v, int indice) {
 		if (tamanho() == 0 || indice >= tamanho()) {
 			inserir(v);
 		} else {
-			NodeDuplo novo = new NodeDuplo(v);
+			NodeDuplo<T> novo = new NodeDuplo<T>(v);
 			if(indice == 0){
 				novo.next = frente;
 				frente.prev = novo;
 				frente = novo;
 			} else {
-				NodeDuplo atual = frente;
+				NodeDuplo<T> atual = frente;
 				for(int i = 1; i < indice; i++) {
 					atual = atual.next;
 				}
@@ -51,10 +51,10 @@ public class ListaDupla {
 		}
 	}
 	
-	public int retirar() {
+	public T retirar() {
 		if (tamanho() == 0)
-			return -1;
-		int retorno = frente.valor;
+			throw new NullPointerException("Lista já está vazia.");
+		T retorno = frente.valor;
 		frente = frente.next;
 		_tamanho--;
 		if (tamanho() == 0)
@@ -62,7 +62,7 @@ public class ListaDupla {
 		return retorno;
 	}
 	
-	public int retirar(int indice) {
+	public T retirar(int indice) {
 		if (indice == 0 )
 			return retirar();
 		if (indice >= tamanho())
@@ -71,7 +71,8 @@ public class ListaDupla {
 		for(int i = 1; i < indice; i++) {
 			atual = atual.next;
 		}
-		int retorno = atual.next.valor;
+		NodeDuplo<T> retirado = atual.next;
+		T retorno = retirado.valor;
 		if(atual.next.next == null)
 			verso = atual;
 		atual.next.next.prev = atual;
@@ -89,7 +90,7 @@ public class ListaDupla {
 		String resp = "[";
 		if (tamanho() > 0)
 		{
-			NodeDuplo mostra = frente;
+			NodeDuplo<T> mostra = frente;
 			while (mostra.next != null) {
 				resp += mostra.valor + ", ";
 				mostra = mostra.next;

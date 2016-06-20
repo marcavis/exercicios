@@ -1,8 +1,8 @@
 package estruturas;
 
-public class FilaDinamica {
-	private Node frente = null;
-	private Node verso = null;
+public class FilaDinamica<T> {
+	private Node<T> frente = null;
+	private Node<T> verso = null;
 	private int _tamanho = 0;
 	
 	public FilaDinamica() {
@@ -13,8 +13,8 @@ public class FilaDinamica {
 		return tamanho() == 0;
 	}
 	
-	public void inserir(int v) {
-		Node novo = new Node(v);
+	public void inserir(T v) {
+		Node<T> novo = new Node<T>(v);
 		if (tamanho() == 0) {
 			frente = novo;
 			frente.next = null;
@@ -25,10 +25,10 @@ public class FilaDinamica {
 		_tamanho++;
 	}
 	
-	public int retirar() {
+	public T retirar() {
 		if (tamanho() == 0)
-			return -1;
-		int retorno = frente.valor;
+			throw new NullPointerException("Fila já está vazia.");
+		T retorno = frente.valor;
 		frente = frente.next;
 		_tamanho--;
 		return retorno;
@@ -43,7 +43,7 @@ public class FilaDinamica {
 		String resp = "[";
 		if (tamanho() > 0)
 		{
-			Node mostra = frente;
+			Node<T> mostra = frente;
 			while (mostra.next != null) {
 				resp += mostra.valor + ",";
 				mostra = mostra.next;

@@ -1,8 +1,9 @@
 package estruturas;
 
-public class ListaCircular {
-	public NodeDuplo frente = null;
-	public NodeDuplo verso = null;
+public class ListaCircular<T> {
+	public NodeDuplo<T> frente = null;
+	public NodeDuplo<T> verso = null;
+	public NodeDuplo<T> cursor = null;
 	private int _tamanho = 0;
 	
 	public ListaCircular() {
@@ -13,9 +14,10 @@ public class ListaCircular {
 		return tamanho() == 0;
 	}
 	
-	public void inserir(int v) {
-		NodeDuplo novo = new NodeDuplo(v);
+	public void inserir(T v) {
+		NodeDuplo<T> novo = new NodeDuplo(v);
 		if (tamanho() == 0) {
+			cursor = novo;
 			frente = novo;
 			frente.prev = novo;
 			frente.next = novo;
@@ -28,18 +30,18 @@ public class ListaCircular {
 		_tamanho++;
 	}
 	
-	public void inserir(int v, int indice) {
+	public void inserir(T v, int indice) {
 		if (tamanho() == 0 || indice >= tamanho()) {
 			inserir(v);
 		} else {
-			NodeDuplo novo = new NodeDuplo(v);
+			NodeDuplo<T> novo = new NodeDuplo<T>(v);
 			if(indice == 0){
 				novo.prev = verso;
 				novo.next = frente;
 				frente.prev = novo;
 				frente = novo;
 			} else {
-				NodeDuplo atual = frente;
+				NodeDuplo<T> atual = frente;
 				for(int i = 1; i < indice; i++) {
 					atual = atual.next;
 				}
@@ -53,10 +55,10 @@ public class ListaCircular {
 		}
 	}
 	
-	public int retirar() {
+	public T retirar() {
 		if (tamanho() == 0)
-			return -1;
-		int retorno = frente.valor;
+			throw new NullPointerException("Lista já está vazia");
+		T retorno = frente.valor;
 		
 		frente = frente.next;
 		frente.prev = verso;
@@ -69,18 +71,19 @@ public class ListaCircular {
 		return retorno;
 	}
 	
-	public int retirar(int indice) {
+	public T retirar(int indice) {
 		if (indice == 0 )
 			return retirar();
 		if (indice >= tamanho())
 			indice = tamanho()-1; //ou talvez lançar uma exceção?
 		System.out.println("jj");
-		NodeDuplo atual = frente;
+		NodeDuplo<T> atual = frente;
 		int i = 1;
 		for(i = 1; i < indice; i++) {
 			atual = atual.next;
 		}
-		int retorno = atual.next.valor;
+		NodeDuplo<T> retirado = atual.next;
+		T retorno = retirado.valor;
 		atual.next.next.prev = atual;
 		atual.next = atual.next.next;
 		if(i == tamanho()-1) {
@@ -92,6 +95,14 @@ public class ListaCircular {
 		return retorno;
 	}
 	
+	public T mostraAtual() {
+		return cursor.valor;
+	}
+	
+	public void proximo() {
+		cursor = cursor.next;
+	}
+	
 	public int tamanho() {
 		return _tamanho;
 	}
@@ -101,7 +112,7 @@ public class ListaCircular {
 		String resp = "[";
 		if (tamanho() > 0)
 		{
-			NodeDuplo mostra = frente;
+			NodeDuplo<T> mostra = frente;
 			for (int i = 0; i < tamanho()-1; i++) {
 				resp += mostra.valor + ", ";
 				mostra = mostra.next;

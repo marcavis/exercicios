@@ -1,7 +1,7 @@
 package estruturas;
 
-public class PilhaDinamica {
-	private Node topo = null;
+public class PilhaDinamica<T> {
+	private Node<T> topo = null;
 	private int _tamanho = 0;
 	
 	public PilhaDinamica() {
@@ -12,17 +12,17 @@ public class PilhaDinamica {
 		return tamanho() == 0;
 	}
 	
-	public void inserir(int v) {
-		Node novo = new Node(v);
+	public void inserir(T v) {
+		Node<T> novo = new Node<T>(v);
 		novo.next = topo;
 		topo = novo;
 		_tamanho++;
 	}
 	
-	public int retirar() {
+	public T retirar() {
 		if (tamanho() == 0)
-			return -1;
-		int retorno = topo.valor;
+			throw new NullPointerException("Pilha já está vazia.");
+		T retorno = topo.valor;
 		topo = topo.next;
 		_tamanho--;
 		return retorno;
@@ -35,7 +35,7 @@ public class PilhaDinamica {
 	@Override
 	public String toString() {
 		String resp = "[";
-		Node mostra = topo;
+		Node<T> mostra = topo;
 		while (mostra.next != null) {
 			resp += mostra.valor + ",";
 			mostra = mostra.next;
