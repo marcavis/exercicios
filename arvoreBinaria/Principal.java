@@ -20,7 +20,7 @@ public class Principal {
 		ab.insere(g);
 		ab.insere(new Node<Integer>(26));
 		
-		ab.remove(new Node<Integer>(24));
+		ab.remove(new Node<Integer>(50));
 		
 		System.out.println(ab.getRaiz());
 		System.out.println(ab.getRaiz().getEsquerda());

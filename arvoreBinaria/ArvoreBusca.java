@@ -63,7 +63,6 @@ public class ArvoreBusca<T extends Comparable> {
 	}
 
 	public void remove(Node<T> n, Node<T> atual) throws Exception {
-		System.out.println(n + " " + atual);
 		if(atual == null)
 			throw new Exception("Elemento não encontrado");
 		if(n.compareTo(atual) == 0) {

@@ -25,10 +25,12 @@ public class Node<T extends Comparable> {
 	
 	public void setEsquerda(Node<T> filho) {
 		this.esquerda = filho;
+		filho.setPai(this);
 	}
 	
 	public void setDireita(Node<T> filho) {
 		this.direita = filho;
+		filho.setPai(this);
 	}
 	
 	public Node<T> getEsquerda() {
@@ -63,7 +65,6 @@ public class Node<T extends Comparable> {
 	}
 	
 	public void trocaFilho(Node<T> atual, Node<T> novo) {
-		System.out.println(this + "t " + atual + "a " + novo + "n ");
 		if (atual == esquerda) {
 			this.esquerda = novo;
 			if(novo != atual.getEsquerda() && novo.getEsquerda() == null)
