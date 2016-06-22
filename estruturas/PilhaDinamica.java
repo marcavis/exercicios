@@ -21,7 +21,7 @@ public class PilhaDinamica<T> {
 	
 	public T retirar() {
 		if (tamanho() == 0)
-			throw new NullPointerException("Pilha j· est· vazia.");
+			throw new NullPointerException("Pilha j√° est√° vazia.");
 		T retorno = topo.valor;
 		topo = topo.next;
 		_tamanho--;

@@ -47,7 +47,7 @@ public class Lista<T> {
 	
 	public T retirar() {
 		if (tamanho() == 0)
-			throw new NullPointerException("Lista j· est· vazia.");
+			throw new NullPointerException("Lista j√° est√° vazia.");
 		T retorno = frente.valor;
 		frente = frente.next;
 		_tamanho--;
@@ -60,7 +60,7 @@ public class Lista<T> {
 		if (indice == 0 )
 			return retirar();
 		if (indice >= tamanho())
-			indice = tamanho()-1; //ou talvez lanÁar uma exceÁ„o?
+			indice = tamanho()-1; //ou talvez lan√ßar uma exce√ß√£o?
 		Node<T> atual = frente;
 		for(int i = 1; i < indice; i++) {
 			Node<T> next = atual.next;
@@ -73,6 +73,14 @@ public class Lista<T> {
 		atual.next = atual.next.next;
 		_tamanho--;
 		return retorno;
+	}
+	
+	public T get(int indice) {
+		Node<T> atual = frente;
+		for(int i = 0; i < indice; i++) {
+			atual = atual.next;
+		}
+		return atual.valor;
 	}
 	
 	public int tamanho() {

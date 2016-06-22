@@ -15,7 +15,7 @@ public class ListaCircular<T> {
 	}
 	
 	public void inserir(T v) {
-		NodeDuplo<T> novo = new NodeDuplo(v);
+		NodeDuplo<T> novo = new NodeDuplo<T>(v);
 		if (tamanho() == 0) {
 			cursor = novo;
 			frente = novo;
@@ -57,7 +57,7 @@ public class ListaCircular<T> {
 	
 	public T retirar() {
 		if (tamanho() == 0)
-			throw new NullPointerException("Lista j· est· vazia");
+			throw new NullPointerException("Lista j√° est√° vazia");
 		T retorno = frente.valor;
 		
 		frente = frente.next;
@@ -75,8 +75,7 @@ public class ListaCircular<T> {
 		if (indice == 0 )
 			return retirar();
 		if (indice >= tamanho())
-			indice = tamanho()-1; //ou talvez lanÁar uma exceÁ„o?
-		System.out.println("jj");
+			indice = tamanho()-1; //ou talvez lan√ßar uma exce√ß√£o?
 		NodeDuplo<T> atual = frente;
 		int i = 1;
 		for(i = 1; i < indice; i++) {
@@ -95,9 +94,27 @@ public class ListaCircular<T> {
 		return retorno;
 	}
 	
+	public T get(int indice) {
+		NodeDuplo<T> atual = frente;
+		for(int i = 0; i < indice; i++) {
+			atual = atual.next;
+		}
+		return atual.valor;
+	}
+	
+	public T mostraAnterior() {
+		NodeDuplo<T> ret = cursor.prev;
+		return ret.valor;
+	}
+	
 	public T mostraAtual() {
 		return cursor.valor;
 	}
+	
+	public T mostraProximo() {
+		NodeDuplo<T> ret = cursor.next;
+		return ret.valor;
+	}	
 	
 	public void proximo() {
 		cursor = cursor.next;
