@@ -2,10 +2,12 @@ package pizzaria;
 
 import estruturas.Lista;
 import estruturas.ListaCircular;
+import estruturas.PilhaDinamica;
 
 public class Principal {
 	public static ListaCircular<Casa> tabuleiro =	new ListaCircular<Casa>();
 	public static ListaCircular<Jogador> jogadores;
+	public static PilhaDinamica<Carta> cartas;
 	
 	public static void main(String[] args) {
 		preencheTabuleiro();
@@ -38,6 +40,13 @@ public class Principal {
 	
 	public static void preencheTabuleiro() {
 		tabuleiro.inserir(Casa.PERDE_TUDO);
+		
+		//tabuleiro.inserir(Casa.ABACAXI);
+		//tabuleiro.inserir(Casa.ABACAXI);
+		//tabuleiro.inserir(Casa.ABACAXI);
+		//tabuleiro.inserir(Casa.ABACAXI);
+		//tabuleiro.inserir(Casa.ABACAXI);
+		
 		tabuleiro.inserir(Casa.CEBOLA);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 		tabuleiro.inserir(Casa.CALABRESA);
@@ -76,5 +85,10 @@ public class Principal {
 		tabuleiro.inserir(Casa.BROCOLIS);
 		tabuleiro.inserir(Casa.AZEITONA);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
+	}
+
+	public static void comprarCarta() {
+		// TODO Auto-generated method stub
+		
 	}
 }

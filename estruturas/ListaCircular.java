@@ -102,6 +102,10 @@ public class ListaCircular<T> {
 		return atual.valor;
 	}
 	
+	public NodeDuplo<T> getCursor() {
+		return cursor;
+	}
+	
 	public T mostraAnterior() {
 		NodeDuplo<T> ret = cursor.prev;
 		return ret.valor;

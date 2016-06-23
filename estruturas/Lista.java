@@ -76,11 +76,19 @@ public class Lista<T> {
 	}
 	
 	public T get(int indice) {
-		Node<T> atual = frente;
+		Node <T> atual = frente;
 		for(int i = 0; i < indice; i++) {
 			atual = atual.next;
 		}
 		return atual.valor;
+	}
+	
+	public boolean contem(T objeto) {
+		boolean ret = false;
+		for(int i = 0; i < tamanho(); i++)
+			if (objeto.equals(this.get(i)))
+				ret = true;
+		return ret;
 	}
 	
 	public int tamanho() {
@@ -107,4 +115,6 @@ public class Lista<T> {
 			return "[]";
 		return "[" + frente.valor + ", " + verso.valor + "]";
 	}
+
+
 }
