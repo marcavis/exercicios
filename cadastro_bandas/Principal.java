@@ -12,8 +12,6 @@ import banco1.Conexao;
 
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.custom.CTabFolder;
@@ -24,11 +22,13 @@ public class Principal extends Shell {
 	private CTabItem tabBandas;
 	private CTabItem tabCidade;
 	private CTabItem tabCadBI;
+	private CTabItem tabBackup;
 	
 	private Composite compInstrumento;
 	private Composite compBandas;
 	private Composite compCidade;
 	private Composite compCadBI;
+	private Composite compBackup;
 	
 	private CTabFolder tabFolder;
 	
@@ -144,6 +144,25 @@ public class Principal extends Shell {
 			}
 		});
 		mntmInstrumentosdasBandas.setText("Instrumentos &das Bandas");
+		
+		new MenuItem(menu_1, SWT.SEPARATOR);
+		
+		MenuItem mntmBackup = new MenuItem(menu_1, SWT.NONE);
+		mntmBackup.addSelectionListener(new SelectionAdapter() {
+			@Override
+			public void widgetSelected(SelectionEvent e) {
+				if(!verificaAba("Backup")) { 
+					tabBackup = new CTabItem(tabFolder, SWT.NONE);
+					tabBackup.setShowClose(true);
+					tabBackup.setText("Backup");
+				
+					compBackup = new TelaBackup(tabFolder, SWT.NONE);
+					tabBackup.setControl(compBackup);
+					tabFolder.setSelection(tabBackup);
+				}
+			}
+		});
+		mntmBackup.setText("&Efetuar Backup");
 		
 		new MenuItem(menu_1, SWT.SEPARATOR);
 		

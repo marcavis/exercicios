@@ -116,4 +116,6 @@ public class Cidade {
 	public String[] toArray() {
 		return new String[]{getId() + "", getNome(), getUf()};
 	}
+
+	
 }

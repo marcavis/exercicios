@@ -56,6 +56,27 @@ public class Banda {
 		}
 	}
 	
+	public Banda buscaPorID(int id) {
+		Banda b = new Banda();
+		String sql = "select * from banda where id=?";
+		try {
+			PreparedStatement ps = Principal.conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				b.setId(rs.getInt("id"));
+				b.setNome(rs.getString("nome"));
+				b.setEstilo(rs.getString("estilo"));
+				b.setIntegrantes(rs.getInt("integrantes"));
+				b.setCD(rs.getString("cd"));
+				b.setCidade(new Cidade().buscaPorID(rs.getInt("cidade")));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return b;
+	}
+	
 	public static ArrayList<Banda> listar(String filtro) {
 		ArrayList<Banda> lista = new ArrayList<Banda>();
 		String sql = "select * from banda order by nome";
@@ -136,5 +157,5 @@ public class Banda {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 }
+	
