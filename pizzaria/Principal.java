@@ -87,8 +87,8 @@ public class Principal {
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 	}
 
-	public static void comprarCarta() {
-		// TODO Auto-generated method stub
+	public static Carta comprarCarta() {
 		
+		return null;
 	}
 }
