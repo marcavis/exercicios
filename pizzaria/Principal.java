@@ -8,6 +8,7 @@ public class Principal {
 	public static ListaCircular<Casa> tabuleiro =	new ListaCircular<Casa>();
 	public static ListaCircular<Jogador> jogadores;
 	public static PilhaDinamica<Carta> cartas;
+	public static boolean jogoAcabou = false;
 	
 	public static void main(String[] args) {
 		preencheTabuleiro();
@@ -32,52 +33,51 @@ public class Principal {
 			jogadores.inserir(j);
 		}
 		
-		for(int i = 0; i<5; i++) {
-			jogadores.mostraAtual().jogar();
-		}
-		
+		int rodada = 0;
+		do {
+			System.out.println("rodada " + rodada);
+			for(int i = 0; i<5; i++) {
+				jogadores.mostraAtual().jogar();
+				jogadores.proximo();
+			}
+			rodada++;
+			System.out.println("");
+		} while (!jogoAcabou && rodada < 10);
 	}
 	
 	public static void preencheTabuleiro() {
 		tabuleiro.inserir(Casa.PERDE_TUDO);
-		
-		//tabuleiro.inserir(Casa.ABACAXI);
-		//tabuleiro.inserir(Casa.ABACAXI);
-		//tabuleiro.inserir(Casa.ABACAXI);
-		//tabuleiro.inserir(Casa.ABACAXI);
-		//tabuleiro.inserir(Casa.ABACAXI);
-		
 		tabuleiro.inserir(Casa.CEBOLA);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 		tabuleiro.inserir(Casa.CALABRESA);
 		tabuleiro.inserir(Casa.QUEIJO);
 		tabuleiro.inserir(Casa.FRANGO);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
-		
 		tabuleiro.inserir(Casa.TOMATE);
 		tabuleiro.inserir(Casa.OVOS);
+		
 		tabuleiro.inserir(Casa.AZEITONA);
-		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
+		tabuleiro.inserir(Casa.ABACAXI);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 		tabuleiro.inserir(Casa.MILHO);
 		tabuleiro.inserir(Casa.CATUPIRY);
-		
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 		tabuleiro.inserir(Casa.PRESUNTO);
 		tabuleiro.inserir(Casa.TOMATE);
 		tabuleiro.inserir(Casa.MILHO);
+		
+		tabuleiro.inserir(Casa.ABACAXI);
 		tabuleiro.inserir(Casa.QUEIJO);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
 		tabuleiro.inserir(Casa.BROCOLIS);
-		
-		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
+		tabuleiro.inserir(Casa.ABACAXI);
 		tabuleiro.inserir(Casa.OVOS);
 		tabuleiro.inserir(Casa.CEBOLA);
-		tabuleiro.inserir(Casa.ABACAXI);
 		tabuleiro.inserir(Casa.CALABRESA);
 		tabuleiro.inserir(Casa.SORTE_OU_AZAR);
-		tabuleiro.inserir(Casa.PRESUNTO);
 		
+		tabuleiro.inserir(Casa.ABACAXI);
+		tabuleiro.inserir(Casa.PRESUNTO);
 		tabuleiro.inserir(Casa.FRANGO);
 		tabuleiro.inserir(Casa.QUEIJO);
 		tabuleiro.inserir(Casa.CATUPIRY);
