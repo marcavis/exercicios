@@ -238,14 +238,19 @@ public class Jogador {
 			}
 			break;
 		case JOGA_ABACAXI:
-			alvo = jogador.procurarProximo();
-			jogador.consomeAbacaxi();
-			if(alvo.isTemAbacaxi()) {
-				System.out.println(jogador + " lança o seu abacaxi na direção de " + alvo + "...");
-				System.out.println("Mas " + alvo + " usa o abacaxi que já possui como escudo e derruba o projetil ao chão!");
+			if(jogador.isTemAbacaxi()) {
+				alvo = jogador.procurarProximo();
+				jogador.consomeAbacaxi();
+				if(alvo.isTemAbacaxi()) {
+					System.out.println(jogador + " lança o seu abacaxi na direção de " + alvo + "...");
+					System.out.println("Mas " + alvo + " usa o abacaxi que já possui como escudo e derruba o projetil ao chão!");
+				} else {
+					System.out.println(jogador + " lança o seu abacaxi, que cai certeiramente nas mãos de " + alvo + "!");
+					alvo.recebeAbacaxi();
+				}
 			} else {
-				System.out.println(jogador + " lança o seu abacaxi, que cai certeiramente nas mãos de " + alvo + "!");
-				alvo.recebeAbacaxi();
+				alvo = jogador.procurarProximo();
+				System.out.println(jogador + " finge que joga um objeto na direção de " + alvo + ", mas não tinha nada em mão!");
 			}
 			break;
 		case COME_ABACAXI:
