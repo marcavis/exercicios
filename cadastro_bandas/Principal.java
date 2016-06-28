@@ -202,7 +202,7 @@ public class Principal extends Shell {
 	protected void createContents() {
 		setText("SWT Application");
 		setSize(740, 470);
-
+		
 	}
 
 	@Override

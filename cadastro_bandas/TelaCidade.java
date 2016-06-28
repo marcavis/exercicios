@@ -16,10 +16,10 @@ import org.eclipse.swt.widgets.TableItem;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.view.JasperViewer;
+//import net.sf.jasperreports.engine.JRException;
+//import net.sf.jasperreports.engine.JasperFillManager;
+//import net.sf.jasperreports.engine.JasperPrint;
+//import net.sf.jasperreports.view.JasperViewer;
 
 import org.eclipse.swt.events.ModifyListener;
 import org.eclipse.swt.events.ModifyEvent;
@@ -138,21 +138,21 @@ public class TelaCidade extends Composite {
 		});
 		textFiltro.setBounds(71, 101, 369, 21);
 		
-		Button btnRelatorio = new Button(this, SWT.NONE);
-		btnRelatorio.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-				JasperPrint impressao;
-				try {
-					impressao = JasperFillManager.fillReport("report/report1.jasper", null, Principal.conn);
-					JasperViewer.viewReport(impressao, false);
-				} catch (JRException e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-		btnRelatorio.setBounds(365, 64, 75, 25);
-		btnRelatorio.setText("Relat\u00F3rio");
+//		Button btnRelatorio = new Button(this, SWT.NONE);
+//		btnRelatorio.addSelectionListener(new SelectionAdapter() {
+//			@Override
+//			public void widgetSelected(SelectionEvent e) {
+//				JasperPrint impressao;
+//				try {
+//					impressao = JasperFillManager.fillReport("report/report1.jasper", null, Principal.conn);
+//					JasperViewer.viewReport(impressao, false);
+//				} catch (JRException e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+//		btnRelatorio.setBounds(365, 64, 75, 25);
+//		btnRelatorio.setText("Relat\u00F3rio");
 		
 		preencheTabela(null);
 	}
